@@ -23,10 +23,6 @@ export const site = {
   // TODO: link do site do e-book. null esconde o botão.
   ebookUrl: null as string | null,
   statsUpdatedAt: 'nov/2026',
-  // TODO: prazo médio de entrega, em dias.
-  deliveryDays: '[X]',
-  // TODO: períodos de licença para anúncios.
-  adRightsDays: '[30, 60 ou 90]',
 };
 
 /** Rotas servidas pelo Worker (worker/index.ts). */
@@ -130,12 +126,12 @@ export const services = [
 export const howIWork = [
   { icon: 'ratio', label: 'Formatos', text: '9:16, 4:5, 1:1 e 16:9' },
   { icon: 'timer', label: 'Duração', text: 'Vídeos de 30 a 60 segundos' },
-  { icon: 'calendar', label: 'Prazo', text: `Em média ${site.deliveryDays} dias após receber o produto` },
+  { icon: 'calendar', label: 'Prazo', text: 'Combinado com você conforme o projeto, após receber o produto' },
   { icon: 'refresh', label: 'Revisões', text: 'Até 3 incluídas' },
   {
     icon: 'badge',
     label: 'Direitos de uso para anúncios',
-    text: `Uso orgânico incluído. Anúncios por ${site.adRightsDays} dias, cobrado à parte`,
+    text: 'Uso orgânico incluído. Período para anúncios combinado com você, cobrado à parte',
   },
   {
     icon: 'handshake',

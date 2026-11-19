@@ -63,5 +63,4 @@ Em `src/config/site.ts`:
 
 - `mediaKitUrl`: PDF do mídia kit (botão fica oculto enquanto for `null`)
 - `ebookUrl`: link do e-book (botão fica oculto enquanto for `null`)
-- `deliveryDays` e `adRightsDays`: prazo de entrega e licença para anúncios
 - `reelUrl` de cada item do portfólio (hoje aponta para o perfil)
