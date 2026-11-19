@@ -1,0 +1,53 @@
+---
+import { site, contactRoutes } from '../config/site';
+---
+
+<footer class="footer">
+  <span class="logo">SL.</span>
+  <p class="info">{site.name} · {site.role} · {site.city}</p>
+  <ul class="links">
+    <li><a href={site.instagram.url} target="_blank" rel="noopener">Instagram</a></li>
+    <li><a href={contactRoutes.email}>E-mail</a></li>
+    <li><a href={contactRoutes.whatsapp} target="_blank" rel="noopener">WhatsApp</a></li>
+  </ul>
+</footer>
+
+<style>
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 40px var(--gutter);
+    background: var(--brown-deep);
+    color: var(--cream-2);
+    font-size: 12px;
+  }
+
+  .logo {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--white);
+  }
+
+  .info {
+    flex: 1;
+    text-align: center;
+  }
+
+  .links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .links a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 720px) {
+    .footer {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

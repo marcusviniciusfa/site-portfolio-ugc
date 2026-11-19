@@ -1,0 +1,137 @@
+---
+import { Image } from 'astro:assets';
+import { MapPin, Download } from '@lucide/astro';
+import family from '../assets/3.jpg';
+import { site } from '../config/site';
+---
+
+<section id="inicio" class="hero section">
+  <div class="container">
+    <div class="title-row">
+      <div class="left">
+        <p class="eyebrow">Criadora de conteúdo UGC</p>
+        <h1 class="display name">Sâmela Laura</h1>
+      </div>
+      <div class="right">
+        <p class="lead">Vídeos que mostram o seu produto na rotina de uma família de verdade, e fazem quem assiste confiar na sua marca.</p>
+        <p class="local"><MapPin size={15} aria-hidden="true" /> De João Pessoa (PB) para marcas de todo o Brasil</p>
+        <div class="buttons">
+          <a href="#contato" class="btn btn-primary big">Pedir orçamento</a>
+          {
+            site.mediaKitUrl && (
+              <a href={site.mediaKitUrl} class="btn btn-outline" download>
+                <Download size={16} aria-hidden="true" /> Baixar mídia kit (PDF)
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+
+    <Image
+      src={family}
+      alt="Sâmela brincando no chão da sala com a filha e o bebê"
+      class="photo"
+      widths={[480, 800, 1280, 1920, 2560]}
+      sizes="(max-width: 1440px) 100vw, 1280px"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: clamp(44px, 6.1vw, 88px);
+    padding-bottom: clamp(40px, 5.6vw, 80px);
+  }
+
+  .title-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 56px;
+  }
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 760px;
+  }
+
+  .name {
+    font-size: clamp(56px, 9.2vw, 132px);
+    line-height: 0.95;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    max-width: 480px;
+  }
+
+  .lead {
+    font-size: clamp(18px, 1.4vw, 20px);
+    line-height: 1.4;
+  }
+
+  .local {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .big {
+    padding: 18px 30px;
+  }
+
+  .photo {
+    width: 100%;
+    height: 620px;
+    object-fit: cover;
+    border-radius: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .title-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .photo {
+      height: 420px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero {
+      padding-bottom: 0;
+    }
+    .hero .container {
+      margin-inline: calc(var(--gutter) * -1);
+    }
+    .title-row {
+      padding-inline: var(--gutter);
+    }
+    .buttons .btn {
+      width: 100%;
+      padding: 16px 22px;
+    }
+    .photo {
+      height: 280px;
+      border-radius: 0;
+    }
+  }
+</style>

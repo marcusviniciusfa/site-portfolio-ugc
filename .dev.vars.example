@@ -1,0 +1,7 @@
+# Copie para .dev.vars (não versionado) e preencha para testar localmente.
+WHATSAPP_NUMBER=5583999999999
+CONTACT_EMAIL=voce@exemplo.com
+CONTACT_TO_EMAIL=voce@exemplo.com
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxx
+# Sem domínio verificado no Resend, use onboarding@resend.dev (só entrega para o e-mail da sua conta Resend).
+RESEND_FROM=Portfólio <onboarding@resend.dev>

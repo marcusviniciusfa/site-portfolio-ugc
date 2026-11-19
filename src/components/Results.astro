@@ -1,0 +1,308 @@
+---
+import { Image } from 'astro:assets';
+import { TrendingUp, ArrowUpRight, ShoppingBag } from '@lucide/astro';
+import BrandIcon from './BrandIcon.astro';
+import ebookCover from '../assets/ebook-capa.jpg';
+import { site, metrics, brands } from '../config/site';
+---
+
+<section id="resultados" class="results section">
+  <div class="container stack">
+    <div class="head">
+      <p class="eyebrow">02 — Números</p>
+      <h2 class="display">Resultados reais</h2>
+    </div>
+
+    <ul class="metrics">
+      {
+        metrics.map((m) => (
+          <li class="box metric">
+            <span class="value">{m.value}</span>
+            <span class="label">{m.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="reach">
+      <TrendingUp size={24} aria-hidden="true" />
+      Meus vídeos alcançam 2x mais pessoas do que meus seguidores.
+    </p>
+
+    <div class="sales">
+      <div class="box ebook">
+        <div class="cover-wrap">
+          <Image src={ebookCover} alt="Capa do e-book da Sâmela" widths={[150, 300]} sizes="150px" class="cover" />
+        </div>
+        <div class="ebook-text">
+          <p class="quote">Criei e vendi meu próprio e-book: sei o que faz alguém parar de rolar e comprar.</p>
+          {
+            site.ebookUrl && (
+              <a href={site.ebookUrl} target="_blank" rel="noopener" class="ghost">
+                Conhecer o e-book <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            )
+          }
+        </div>
+      </div>
+
+      <div class="box shopee">
+        <ShoppingBag size={28} aria-hidden="true" />
+        <p class="quote">Também gero vendas como afiliada da Shopee, indicando produtos que uso na minha rotina.</p>
+      </div>
+    </div>
+
+    <div class="meta">
+      <p>Dados atualizados em {site.statsUpdatedAt}.</p>
+      <a href={site.instagram.url} target="_blank" rel="noopener" class="ig">
+        <BrandIcon name="instagram" size={14} /> Ver meu perfil no Instagram <ArrowUpRight size={14} aria-hidden="true" />
+      </a>
+    </div>
+
+    <div class="brands">
+      <p class="eyebrow">Quem já confiou no meu trabalho</p>
+      <ul class="brand-list">
+        {brands.map((b) => <li>{b}</li>)}
+      </ul>
+      <p class="htc">Produtos que já estiveram nos meus vídeos pelo Home Tester Club: CIF, OMO e Hoomy.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .results {
+    background: var(--terra-deep);
+    color: var(--white);
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .head .eyebrow {
+    color: var(--cream-2);
+  }
+
+  h2 {
+    font-size: clamp(52px, 7.2vw, 104px);
+  }
+
+  .box {
+    background: rgb(255 253 250 / 0.08);
+    box-shadow: inset 0 0 0 1px rgb(255 253 250 / 0.2);
+    border-radius: 24px;
+    padding: clamp(24px, 2.5vw, 36px);
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .metric {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 220px;
+  }
+
+  .value {
+    font-family: var(--serif);
+    font-size: clamp(56px, 6.7vw, 96px);
+    line-height: 1;
+  }
+
+  .label {
+    color: var(--cream);
+    font-size: clamp(15px, 1.25vw, 18px);
+  }
+
+  .reach {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(22px, 2vw, 28px);
+    line-height: 1.4;
+  }
+
+  .reach :global(svg) {
+    flex-shrink: 0;
+  }
+
+  .sales {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .ebook {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .cover-wrap {
+    flex-shrink: 0;
+    width: 170px;
+    padding: 20px;
+  }
+
+  .cover {
+    width: 140px;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 4px solid #fff;
+    box-shadow: 0 14px 30px rgb(0 0 0 / 0.25);
+    transform: rotate(5deg);
+  }
+
+  .ebook-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .quote {
+    font-family: var(--serif);
+    font-size: clamp(20px, 1.7vw, 24px);
+    line-height: 1.3;
+  }
+
+  .ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1.5px var(--cream-2);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+  }
+
+  .ghost:hover {
+    background: rgb(255 253 250 / 0.12);
+  }
+
+  .shopee {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: -24px;
+    color: var(--cream);
+    font-size: 13px;
+  }
+
+  .ig {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+  }
+
+  .ig:hover {
+    text-decoration: underline;
+  }
+
+  .brands {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    background: #fff;
+    color: var(--muted);
+    border-radius: 24px;
+    padding: 40px 48px;
+  }
+
+  .brands .eyebrow {
+    color: var(--muted);
+  }
+
+  .brand-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 32px;
+    width: 100%;
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 600;
+    color: #8c7a6e;
+  }
+
+  .htc {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .stack {
+      gap: 20px;
+    }
+    .metrics,
+    .sales {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .metric {
+      min-height: 0;
+      gap: 4px;
+    }
+    .reach {
+      align-items: flex-start;
+      padding-block: 12px;
+    }
+    .reach :global(svg) {
+      display: none;
+    }
+    .ebook {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .cover-wrap {
+      width: 150px;
+      padding: 10px 0 0 6px;
+    }
+    .meta {
+      margin-top: 8px;
+    }
+    .brands {
+      padding: 24px;
+      gap: 16px;
+      border-radius: 20px;
+    }
+    .brand-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      text-align: center;
+      font-size: 17px;
+      gap: 12px;
+    }
+    .htc {
+      font-size: 13px;
+    }
+  }
+</style>

@@ -1,0 +1,157 @@
+---
+import { Video, Camera, Sparkles } from '@lucide/astro';
+import { services } from '../config/site';
+
+const icons = { video: Video, camera: Camera, sparkles: Sparkles };
+---
+
+<section id="servicos" class="services section">
+  <div class="container stack">
+    <div class="head">
+      <p class="eyebrow">04 — Serviços</p>
+      <h2 class="display">O que eu crio para a sua marca</h2>
+      <p class="note" aria-hidden="true">tudo pensado para<br />vender sem parecer anúncio</p>
+    </div>
+
+    <ul class="cols">
+      {
+        services.map((s) => {
+          const Icon = icons[s.icon];
+          return (
+            <li class="card">
+              <span class="icon">
+                <Icon size={20} aria-hidden="true" />
+              </span>
+              <h3>{s.title}</h3>
+              <ul class="list">
+                {s.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <p class="included">Todos os trabalhos incluem roteiro e edição completa (cortes, legendas, trilha e cor).</p>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--sand);
+    padding-block: clamp(64px, 7.6vw, 110px);
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .head {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  h2 {
+    font-size: clamp(38px, 4.2vw, 60px);
+    line-height: 1.05;
+  }
+
+  .note {
+    position: absolute;
+    right: 0;
+    top: -21px;
+    width: 360px;
+    font-family: var(--hand);
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--terra);
+    text-align: right;
+    transform: rotate(2deg);
+  }
+
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--bg);
+    border-radius: 20px;
+    padding: clamp(24px, 2.5vw, 36px);
+  }
+
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: var(--sky-soft);
+    color: #6f97b1;
+  }
+
+  h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.1;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .list li {
+    display: flex;
+    gap: 10px;
+  }
+
+  .list li::before {
+    content: '—';
+    color: var(--caramel);
+  }
+
+  .included {
+    font-size: 15px;
+    color: var(--muted-2);
+  }
+
+  @media (max-width: 1100px) {
+    .note {
+      position: static;
+      width: auto;
+      text-align: left;
+      transform: rotate(-1deg);
+      margin-top: 4px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .stack {
+      gap: 20px;
+    }
+    .cols {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    h3 {
+      font-size: 24px;
+    }
+  }
+</style>

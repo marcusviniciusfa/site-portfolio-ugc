@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "site-portfolio-ugc",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // Só estas rotas passam pelo Worker; o resto é servido direto como estático.
+    "run_worker_first": ["/whatsapp", "/email", "/api/*"]
+  },
+  "observability": { "enabled": true }
+  // Secrets (não versionados): WHATSAPP_NUMBER, CONTACT_EMAIL, CONTACT_TO_EMAIL,
+  // RESEND_API_KEY, RESEND_FROM. Local: .dev.vars. Produção: painel da Cloudflare
+  // ou `npx wrangler secret put <NOME>`.
+}

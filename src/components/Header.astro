@@ -1,0 +1,170 @@
+---
+import { Menu, X } from '@lucide/astro';
+import { nav } from '../config/site';
+---
+
+<header class="header">
+  <div class="header-inner">
+    <a href="#inicio" class="logo" aria-label="Sâmela Laura, voltar ao início">SL.</a>
+
+    <nav class="links" aria-label="Seções">
+      {nav.map((item) => <a href={item.href} data-nav>{item.label}</a>)}
+    </nav>
+
+    <div class="actions">
+      <a href="#contato" class="btn btn-primary cta">Pedir orçamento</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Abrir menu">
+        <Menu size={24} class="icon-open" aria-hidden="true" />
+        <X size={24} class="icon-close" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Seções" hidden>
+    {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(246 241 234 / 0.93);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: var(--header-h);
+    padding: 0 var(--gutter);
+  }
+
+  .logo {
+    font-family: var(--serif);
+    font-size: 30px;
+    line-height: 1;
+    color: var(--brown);
+  }
+
+  .links {
+    display: flex;
+    gap: 36px;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .links a {
+    transition: color 0.2s;
+  }
+
+  .links a:hover,
+  .links a[aria-current='true'] {
+    color: var(--terra);
+  }
+
+  .links a[aria-current='true'] {
+    font-weight: 600;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .menu-btn {
+    display: none;
+    background: none;
+    border: 0;
+    padding: 4px;
+    color: var(--brown);
+    cursor: pointer;
+  }
+
+  .menu-btn .icon-close,
+  .menu-btn[aria-expanded='true'] .icon-open {
+    display: none;
+  }
+
+  .menu-btn[aria-expanded='true'] .icon-close {
+    display: block;
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 8px var(--gutter) 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .mobile-nav[hidden] {
+    display: none;
+  }
+
+  .mobile-nav a {
+    padding: 14px 0;
+    font-size: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  @media (max-width: 1100px) {
+    .links {
+      display: none;
+    }
+    .menu-btn {
+      display: block;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .header {
+      --header-h: 70px;
+    }
+    .logo {
+      font-size: 26px;
+      font-weight: 500;
+    }
+    .cta {
+      padding: 9px 16px;
+      font-size: 13px;
+    }
+  }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  const panel = document.getElementById('mobile-nav');
+
+  function setOpen(open: boolean) {
+    if (!btn || !panel) return;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    panel.hidden = !open;
+  }
+
+  btn?.addEventListener('click', () => setOpen(btn.getAttribute('aria-expanded') !== 'true'));
+  panel?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+  // Destaca o link da seção visível.
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-nav]');
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const id = `#${entry.target.id}`;
+        links.forEach((l) => l.setAttribute('aria-current', String(l.getAttribute('href') === id)));
+      }
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+  links.forEach((l) => {
+    const target = document.querySelector(l.getAttribute('href')!);
+    if (target) observer.observe(target);
+  });
+</script>

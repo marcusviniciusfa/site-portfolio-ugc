@@ -1,0 +1,275 @@
+---
+import { Image } from 'astro:assets';
+import { VolumeX } from '@lucide/astro';
+import BrandIcon from './BrandIcon.astro';
+import cif from '../assets/cif.png';
+import omo from '../assets/omo.png';
+import hoomy from '../assets/hoomy.png';
+import odontologia from '../assets/odontologia.png';
+import { portfolio } from '../config/site';
+
+const images = { cif, omo, hoomy, odontologia };
+---
+
+<section id="portfolio" class="portfolio section">
+  <div class="container">
+    <div class="head">
+      <div class="title">
+        <p class="eyebrow">01 — Trabalhos</p>
+        <h2 class="display">Portfólio</h2>
+      </div>
+      <p class="sub">Do dia a dia da minha casa para o feed da sua marca.</p>
+    </div>
+
+    <ul class="grid" data-track>
+      {
+        portfolio.map((item) => (
+          <li class="card">
+            <a href={item.reelUrl} target="_blank" rel="noopener" class="cover" aria-label={`Ver o Reel ${item.title} no Instagram`}>
+              <Image
+                src={images[item.image]}
+                alt=""
+                widths={[300, 450, 600]}
+                sizes="(max-width: 900px) 78vw, 300px"
+                class="cover-img"
+              />
+              <span class="cover-top">
+                <span class="tag">{item.type}</span>
+                <span class="sound" aria-hidden="true">
+                  <VolumeX size={18} />
+                </span>
+              </span>
+            </a>
+            <div class="text">
+              <h3>{item.title}</h3>
+              <p>{item.goal}</p>
+            </div>
+            <a href={item.reelUrl} target="_blank" rel="noopener" class="reel-link">
+              <BrandIcon name="instagram" size={16} /> Ver o Reel completo no Instagram
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="dots" aria-hidden="true">
+      {portfolio.map((_, i) => <span class:list={['dot', { active: i === 0 }]} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .portfolio {
+    background: var(--terra);
+    color: var(--white);
+  }
+
+  .head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .eyebrow {
+    color: var(--sky);
+  }
+
+  h2 {
+    font-size: clamp(64px, 8.9vw, 128px);
+  }
+
+  .sub {
+    max-width: 460px;
+    text-align: right;
+    color: var(--cream);
+    font-size: 16px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .cover {
+    position: relative;
+    display: block;
+    aspect-ratio: 9 / 16;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--terra-deep);
+  }
+
+  .cover-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .cover:hover .cover-img {
+    transform: scale(1.03);
+  }
+
+  .cover-top {
+    position: absolute;
+    inset: 16px 16px auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .tag {
+    background: rgb(255 253 250 / 0.9);
+    color: var(--terra);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 17px;
+  }
+
+  .sound {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgb(0 0 0 / 0.33);
+    color: var(--white);
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+
+  h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.1;
+  }
+
+  .text p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .reel-link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px var(--cream);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 20px;
+    transition: background-color 0.2s;
+  }
+
+  .reel-link:hover {
+    background: rgb(255 253 250 / 0.12);
+  }
+
+  .dots {
+    display: none;
+  }
+
+  @media (max-width: 1100px) and (min-width: 901px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .sub {
+      text-align: left;
+      font-size: 15px;
+    }
+    .grid {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      margin-inline: calc(var(--gutter) * -1);
+      padding-inline: var(--gutter);
+      scroll-padding-inline: var(--gutter);
+    }
+    .grid::-webkit-scrollbar {
+      display: none;
+    }
+    .card {
+      flex: 0 0 min(78vw, 300px);
+      scroll-snap-align: start;
+    }
+    h3 {
+      font-size: 24px;
+    }
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgb(255 253 250 / 0.4);
+      transition:
+        width 0.2s,
+        background-color 0.2s;
+    }
+    .dot.active {
+      width: 22px;
+      background: var(--white);
+    }
+  }
+</style>
+
+<script>
+  const track = document.querySelector<HTMLElement>('[data-track]');
+  const dots = document.querySelectorAll('.portfolio .dot');
+  track?.addEventListener(
+    'scroll',
+    () => {
+      const cards = track.children;
+      if (!cards.length) return;
+      const step = (cards[1] as HTMLElement | undefined)?.offsetLeft ?? 0;
+      const first = (cards[0] as HTMLElement).offsetLeft;
+      const index = step > first ? Math.round(track.scrollLeft / (step - first)) : 0;
+      dots.forEach((d, i) => d.classList.toggle('active', i === Math.min(index, dots.length - 1)));
+    },
+    { passive: true },
+  );
+</script>

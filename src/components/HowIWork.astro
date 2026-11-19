@@ -1,0 +1,107 @@
+---
+import { Ratio, Timer, Calendar, RefreshCcw, BadgeCheck, Handshake } from '@lucide/astro';
+import { howIWork } from '../config/site';
+
+const icons = {
+  ratio: Ratio,
+  timer: Timer,
+  calendar: Calendar,
+  refresh: RefreshCcw,
+  badge: BadgeCheck,
+  handshake: Handshake,
+};
+---
+
+<section id="como-trabalho" class="how section">
+  <div class="container stack">
+    <div class="head">
+      <p class="eyebrow">05 — Como trabalho</p>
+      <h2 class="display">Simples, combinado e sem surpresas</h2>
+    </div>
+
+    <dl class="grid">
+      {
+        howIWork.map((item) => {
+          const Icon = icons[item.icon];
+          return (
+            <div class="item">
+              <Icon size={22} aria-hidden="true" class="ico" />
+              <div>
+                <dt>{item.label}</dt>
+                <dd>{item.text}</dd>
+              </div>
+            </div>
+          );
+        })
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .how {
+    padding-block: clamp(64px, 7.6vw, 110px);
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  h2 {
+    font-size: clamp(38px, 3.9vw, 56px);
+    line-height: 1.05;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px 40px;
+    margin: 0;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ico {
+    flex-shrink: 0;
+    color: var(--caramel);
+  }
+
+  dt {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--terra);
+  }
+
+  dd {
+    margin: 2px 0 0;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 900px) {
+    .stack {
+      gap: 24px;
+    }
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .item {
+      padding-bottom: 20px;
+    }
+  }
+</style>
